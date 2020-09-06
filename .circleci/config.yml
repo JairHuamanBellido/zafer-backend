@@ -7,12 +7,7 @@ jobs:
       - checkout
       - run:
           name: Install npm dependencies
-          command:
-            yarn install
-      - run:
-          name: Testing
-          command: 
-            npm run test
+          command: yarn install
 workflows:
   build_test:
     jobs:
