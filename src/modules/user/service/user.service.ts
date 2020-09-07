@@ -1,11 +1,11 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
-import { IUser } from '../interface/user-service.interface';
 import { S3 } from 'aws-sdk';
-import { FileUpload } from '../../../models/file-upload.model';
-import { CreateUser } from '../../../models/users/create-user.model';
 import { InjectModel } from '@nestjs/mongoose';
-import { User } from '../../../schemas/user.schema';
 import { Model } from 'mongoose';
+import { IUser } from '../interface/user-service.interface';
+import { FileUpload } from '../../../models/file-upload.model';
+import { CreateUser, UserDTO } from '../../../models/users/user.model';
+import { User } from '../../../schemas/user.schema';
 import { ApiResponse } from '../../../models/global/api-response.model';
 import { UserExceptionService } from './user-exception.service';
 import { SuccessResponse } from '../../../models/global/success-response.model';
@@ -39,6 +39,17 @@ export class UserService implements IUser {
     } catch (error) {
       return new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+  }
+
+  async get(id: string): Promise<ApiResponse<UserDTO> | HttpException> {
+    const user = await this.userModel.findOne({ _id: id });
+    const userDto: UserDTO = {
+      lastname: user.lastname,
+      name: user.name,
+      avatar: user.avatar,
+      id: user._id,
+    };
+    return { body: userDto, status: 200 };
   }
 
   private async _uploadFile(

@@ -2,9 +2,9 @@ import { Controller, Post, Body, HttpException } from '@nestjs/common';
 import {
   UserAuthenticate,
   UserAuthenticateResponse,
-} from 'src/models/users/auth-user.model';
+} from '../../../models/users/auth-user.model';
 import { AuthService } from '../service/auth.service';
-import { ApiResponse } from 'src/models/global/api-response.model';
+import { ApiResponse } from '../../../models/global/api-response.model';
 
 @Controller('auth')
 export class AuthController {

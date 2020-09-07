@@ -1,14 +1,13 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-
+import { InjectModel } from '@nestjs/mongoose';
 import { IAuth } from '../interface/auth.interface';
 import {
   UserAuthenticate,
   UserAuthenticateResponse,
-} from 'src/models/users/auth-user.model';
-import { ApiResponse } from 'src/models/global/api-response.model';
-import { InjectModel } from '@nestjs/mongoose';
-import { User } from 'src/schemas/user.schema';
+} from '../../../models/users/auth-user.model';
+import { ApiResponse } from '../../../models/global/api-response.model';
+import { User } from '../../../schemas/user.schema';
 import { Model } from 'mongoose';
 
 @Injectable()
