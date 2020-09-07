@@ -15,7 +15,7 @@ import { FileUpload } from '../../../models/file-upload.model';
 import { CreateUser, UserDTO } from '../../../models/users/user.model';
 import { ApiResponse } from '../../../models/global/api-response.model';
 import { SuccessResponse } from '../../../models/global/success-response.model';
-import { JwtAuthGuard } from 'src/guard/jwt.guard';
+import { JwtAuthGuard } from '../../../guard/jwt.guard';
 import { UserJwt } from '../decorator/user.decorator';
 @Controller('users')
 export class UserController {

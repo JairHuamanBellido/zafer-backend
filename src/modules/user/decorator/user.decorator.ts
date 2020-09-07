@@ -1,4 +1,4 @@
-import { createParamDecorator, ExecutionContext } from '@nestjs/common';
+import { createParamDecorator, ExecutionContext, Logger } from '@nestjs/common';
 import {} from 'module';
 import { JwtService } from '@nestjs/jwt';
 export const UserJwt = createParamDecorator(
@@ -6,6 +6,7 @@ export const UserJwt = createParamDecorator(
     const request = ctx.switchToHttp().getRequest();
     const jwtService = new JwtService({ secret: process.env.KEY_JWT });
     const token = request.headers.authorization.split(' ')[1];
+    Logger.log(token);
     return jwtService.decode(token)['id'];
   },
 );
