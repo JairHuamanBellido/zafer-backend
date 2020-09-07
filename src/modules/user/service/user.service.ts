@@ -1,4 +1,4 @@
-import { Injectable, HttpException, HttpStatus, Logger } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { S3 } from 'aws-sdk';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -43,8 +43,7 @@ export class UserService implements IUser {
 
   async get(id: string): Promise<ApiResponse<UserDTO> | HttpException> {
     const user = await this.userModel.findOne({ _id: id });
-
-    Logger.log(user);
+    console.log(user);
     const userDto: UserDTO = {
       lastname: user.lastname,
       name: user.name,

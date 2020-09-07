@@ -7,6 +7,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { GlobalInterceptor } from './interceptor/global.interceptor';
 import { AuthModule } from './modules/auth/auth.module';
+
 @Module({
   imports: [
     UserModule,
