@@ -43,14 +43,7 @@ export class UserService implements IUser {
 
   async get(id: string): Promise<ApiResponse<UserDTO> | HttpException> {
     const user = await this.userModel.findOne({ _id: id });
-    console.log(user);
-    const userDto: UserDTO = {
-      lastname: user.lastname,
-      name: user.name,
-      avatar: user.avatar,
-      id: user._id,
-    };
-    return { body: userDto, status: 200 };
+    return { body: UserDTO.transformUser(user), status: 200 };
   }
 
   private async _uploadFile(
