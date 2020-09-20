@@ -1,6 +1,8 @@
 import { IsNotEmpty, IsString } from 'class-validator';
 import { Schema } from 'mongoose';
-import { User } from 'src/schemas/user.schema';
+import { OrganizationDTO } from '../../../modules/organizations/dto/organization.dto';
+import { User } from '../../../schemas/user.schema';
+
 export class CreateUser {
   @IsNotEmpty()
   @IsString()
@@ -27,6 +29,9 @@ export class CreateUser {
   readonly password: string;
 }
 
+/**
+ * DTO para la busqueda de personas
+ */
 export class UserDTO {
   readonly name: string;
   readonly lastname: string;
@@ -39,6 +44,30 @@ export class UserDTO {
       id: user.id,
       lastname: user.lastname,
       name: user.name,
+    };
+  }
+}
+
+/**
+ * DTO para información personal del usuario
+ */
+export class UserPersonalDTO {
+  readonly name: string;
+  readonly lastname: string;
+  readonly avatar: string;
+  readonly id: Schema.Types.ObjectId;
+  readonly organization: OrganizationDTO;
+
+  static transformUser(
+    user: User,
+    organization: OrganizationDTO | null,
+  ): UserPersonalDTO {
+    return {
+      avatar: user.avatar,
+      id: user._id,
+      lastname: user.lastname,
+      name: user.name,
+      organization: organization,
     };
   }
 }

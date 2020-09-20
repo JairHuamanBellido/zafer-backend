@@ -1,19 +1,14 @@
-import { Controller, Post, Body, HttpException } from '@nestjs/common';
-import {
-  UserAuthenticate,
-  UserAuthenticateResponse,
-} from '../../../models/users/auth-user.model';
+import { Controller, Post, Body } from '@nestjs/common';
+import { UserAuthenticate } from '../../../models/users/auth-user.model';
 import { AuthService } from '../service/auth.service';
-import { ApiResponse } from '../../../models/global/api-response.model';
+import { AuthSuccess } from '../types/auth.type';
 
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post('/')
-  async authenticate(
-    @Body() body: UserAuthenticate,
-  ): Promise<ApiResponse<UserAuthenticateResponse> | HttpException> {
+  async authenticate(@Body() body: UserAuthenticate): AuthSuccess {
     return await this.authService.authenticate(body);
   }
 }
