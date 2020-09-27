@@ -1,6 +1,6 @@
 import { CreateOrganizationDTO } from '../dto/organization.dto';
-import { CreateSuccess } from '../type/Organization.type';
+import { CreateOrganizationSucces } from '../type/Organization.type';
 
 export interface IOrganization {
-  create(organization: CreateOrganizationDTO): CreateSuccess;
+  create(organization: CreateOrganizationDTO): CreateOrganizationSucces;
 }

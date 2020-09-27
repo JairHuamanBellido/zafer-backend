@@ -27,6 +27,15 @@ export class Organization extends Document {
     {
       required: true,
       type: SCH.Types.ObjectId,
+      ref: 'User',
+    },
+  ])
+  guestUser: User[];
+
+  @Prop([
+    {
+      required: true,
+      type: SCH.Types.ObjectId,
       ref: 'Game',
     },
   ])
@@ -34,4 +43,3 @@ export class Organization extends Document {
 }
 
 export const OrganizationSchema = SchemaFactory.createForClass(Organization);
-OrganizationSchema.path('id');

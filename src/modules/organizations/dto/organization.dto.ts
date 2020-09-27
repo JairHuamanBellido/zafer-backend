@@ -8,6 +8,7 @@ export class CreateOrganizationDTO {
   readonly fundation: Date;
   readonly email: string;
   readonly members: [Schema.Types.ObjectId];
+  readonly guestUsers: [Schema.Types.ObjectId];
   readonly games: [Schema.Types.ObjectId];
 }
 
@@ -19,6 +20,7 @@ export class OrganizationDTO {
   readonly fundation: Date;
   readonly email: string;
   readonly members: UserDTO[];
+  readonly guestUsers: UserDTO[];
   readonly games: GameDto[];
   readonly id: string;
 
@@ -28,6 +30,7 @@ export class OrganizationDTO {
       name: organization.name,
       email: organization.email,
       fundation: organization.fundation,
+      guestUsers: organization.guestUser.map(e => UserDTO.transformUser(e)),
       games: organization.games.map(e => GameDto.transformGame(e)),
       members: organization.members.map(e => UserDTO.transformUser(e)),
     };

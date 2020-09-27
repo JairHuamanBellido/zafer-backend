@@ -25,6 +25,9 @@ export class User extends Document {
   password: string;
 
   @Prop({ required: false, type: String })
+  role?: string;
+
+  @Prop({ required: false, type: String })
   avatar: string;
 }
 

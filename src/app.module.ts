@@ -9,6 +9,8 @@ import { GlobalInterceptor } from './interceptor/global.interceptor';
 import { AuthModule } from './modules/auth/auth.module';
 import { OrganizationsModule } from './modules/organizations/organizations.module';
 import { GamesModule } from './modules/games/games.module';
+import { NotificationsModule } from './modules/notifications/notifications.module';
+import { RequestInvitationModule } from './modules/request-invitation/request-invitation.module';
 
 @Module({
   imports: [
@@ -20,6 +22,8 @@ import { GamesModule } from './modules/games/games.module';
     AuthModule,
     OrganizationsModule,
     GamesModule,
+    NotificationsModule,
+    RequestInvitationModule,
   ],
   controllers: [AppController],
   providers: [

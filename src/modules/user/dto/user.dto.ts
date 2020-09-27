@@ -37,13 +37,14 @@ export class UserDTO {
   readonly lastname: string;
   readonly avatar: string;
   readonly id: Schema.Types.ObjectId;
-
+  readonly role?: string;
   static transformUser(user: User): UserDTO {
     return {
       avatar: user.avatar,
       id: user.id,
       lastname: user.lastname,
       name: user.name,
+      role: user.role,
     };
   }
 }
