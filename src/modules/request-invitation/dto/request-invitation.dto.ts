@@ -19,3 +19,7 @@ export class RequestInvitationDTO {
     };
   }
 }
+
+export class InvitationRequestReceivedDTO {
+  readonly accept: boolean;
+}
