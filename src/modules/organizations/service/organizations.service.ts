@@ -5,10 +5,7 @@ import { ApiResponse } from '../../../models/global/api-response.model';
 import { Game } from '../../../schemas/game.schema';
 import { Organization } from '../../../schemas/organization.schema';
 import { User } from '../../../schemas/user.schema';
-import {
-  CreateOrganizationDTO,
-  OrganizationDTO,
-} from '../dto/organization.dto';
+import { CreateOrganizationDTO, OrganizationDTO } from '../dto/organization.dto';
 import { IOrganization } from '../interface/IOrganization.interface';
 import { CreateOrganizationSucces } from '../type/Organization.type';
 import { OrganizationExceptionService } from './organization-exception.service';
@@ -28,15 +25,16 @@ export class OrganizationsService implements IOrganization {
   async create(organization: CreateOrganizationDTO): CreateOrganizationSucces {
     try {
       if (await this.exceptionService.isNameExist(organization.name)) {
-        return new HttpException(
-          'El nombre de la organización ya existe',
-          HttpStatus.CONFLICT,
-        );
+        return new HttpException('El nombre de la organización ya existe', HttpStatus.CONFLICT);
       }
       const createOrganization = new this.organizationModel(organization);
 
       createOrganization.members = await this.userModel.find({
         _id: { $in: organization.members },
+      });
+
+      organization.members.forEach(async e => {
+        await this.userModel.updateOne({ _id: e }, { role: 'admin' });
       });
 
       createOrganization.guestUser = await this.userModel.find({
@@ -57,7 +55,7 @@ export class OrganizationsService implements IOrganization {
       return new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
-  
+
   async get(): Promise<ApiResponse<Organization[]> | HttpException> {
     try {
       return {
