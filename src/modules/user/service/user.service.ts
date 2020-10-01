@@ -28,11 +28,7 @@ export class UserService implements IUser {
       }
       const createdUser = new this.userModel(user);
       createdUser.fullname = createdUser.name + ' ' + createdUser.lastname;
-      createdUser.avatar = await this._uploadFile(
-        file.buffer,
-        file.originalname,
-        createdUser._id,
-      );
+      createdUser.avatar = await this._uploadFile(file.buffer, file.originalname, createdUser._id);
       await createdUser.save();
       return {
         body: { message: 'Usuario creado con éxito' },
@@ -51,12 +47,10 @@ export class UserService implements IUser {
       })
       .populate('members')
       .populate('games')
+      .populate('guestUser')
       .exec();
 
-    const organizationDTO: OrganizationDTO =
-      (await organization) !== null
-        ? OrganizationDTO.transform(organization)
-        : null;
+    const organizationDTO: OrganizationDTO = (await organization) !== null ? OrganizationDTO.transform(organization) : null;
 
     return {
       body: UserPersonalDTO.transformUser(user, organizationDTO),
@@ -83,11 +77,7 @@ export class UserService implements IUser {
     }
   }
 
-  private async _uploadFile(
-    dataBuffer: Buffer,
-    filename: string,
-    idUser: any,
-  ): Promise<string> {
+  private async _uploadFile(dataBuffer: Buffer, filename: string, idUser: any): Promise<string> {
     const _filename = `${idUser}.${filename.split('.')[1]}`;
     const s3 = new S3();
     return await s3
